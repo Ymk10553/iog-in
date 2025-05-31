@@ -4,9 +4,9 @@ html
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neon Login Page</title>
+  <title>Neon Sign Up Page</title>
   <style>
-    /* Reset */
+    /* Reset styles */
     * {
       margin: 0;
       padding: 0;
@@ -23,66 +23,125 @@ html
       overflow: hidden;
     }
 
-    /* Container */
+    /* Background floating shapes */
+    .shapes-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .shape {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 25px;
+      box-shadow: inset -8px -8px 15px rgba(0,0,0,0.3), 8px 8px 15px rgba(0,0,0,0.3);
+      opacity: 0.8;
+      animation: floatUpDown 12s infinite ease-in-out;
+    }
+
+    /* Varying positions, colors, rotations, delays for shapes */
+    .shape:nth-child(1) {
+      top: 15%;
+      left: 10%;
+      background: linear-gradient(135deg, #ff00ff, #00ffff);
+      transform: rotate(20deg);
+      animation-delay: 0s;
+    }
+    .shape:nth-child(2) {
+      top: 70%;
+      left: 85%;
+      background: linear-gradient(135deg, #ffff00, #ff00ff);
+      transform: rotate(45deg);
+      animation-delay: 2s;
+    }
+    .shape:nth-child(3) {
+      top: 40%;
+      left: 50%;
+      background: linear-gradient(135deg, #00ff00, #ffff00);
+      transform: rotate(60deg);
+      animation-delay: 4s;
+    }
+
+    /* Animate floating shapes */
+    @keyframes floatUpDown {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Main container for form */
     .container {
       position: relative;
-      width: 400px;
+      width: 420px;
       padding: 40px;
       background: rgba(0, 0, 0, 0.2);
       border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.6);
       z-index: 1;
     }
 
-    /* Title */
+    /* Neon title */
     .title {
       text-align: center;
       font-size: 2em;
-      color: #00ffff;
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
-      margin-bottom: 20px;
+      color: #ff00ff;
+      text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+      margin-bottom: 25px;
     }
 
-    /* Input fields */
+    /* Input Group styles */
     .input-group {
       margin-bottom: 20px;
       position: relative;
     }
 
-    input[type="text"], input[type="password"] {
+    /* Inputs styling */
+    input[type="text"], input[type="email"], input[type="password"] {
       width: 100%;
-      padding: 12px 20px;
+      padding: 14px 20px;
       background: transparent;
-      border: 2px solid #00ffff;
+      border: 2px solid #ff00ff;
       border-radius: 10px;
       font-size: 1em;
       color: #fff;
       outline: none;
-      transition: 0.3s;
+      transition: box-shadow 0.3s, border-color 0.3s;
     }
 
-    input[type="text"]:focus, input[type="password"]:focus {
-      box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+    /* Focus effect on inputs */
+    input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+      box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff;
+      border-color: #ffff00;
     }
 
-    /* Submit Button */
+    /* Submit button styling */
     button {
       width: 100%;
       padding: 14px;
       background: none;
-      border: 2px solid #ff00ff;
+      border: 3px solid #00ffff;
       border-radius: 10px;
       font-size: 1.2em;
-      color: #ff00ff;
+      color: #00ffff;
       cursor: pointer;
-      transition: 0.3s;
+      transition: box-shadow 0.3s, transform 0.2s;
     }
 
+    /* Hover effects for button */
     button:hover {
-      box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+      box-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff;
+      transform: scale(1.05);
     }
 
-    /* Neon glow effect for the entire container */
+    /* Neon glow around the container */
     .container::before {
       content: '';
       position: absolute;
@@ -95,7 +154,7 @@ html
       );
       background-size: 400% 400%;
       animation: rotateGradient 20s linear infinite;
-      filter: blur(30px);
+      filter: blur(40px);
       opacity: 0.7;
       z-index: -1;
       border-radius: 50%;
@@ -110,82 +169,34 @@ html
       }
     }
 
-    /* Add 3D Shapes in background */
-    .shapes-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    /* 3D shape styles */
-    .shape {
-      position: absolute;
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, #ff00ff, #00ffff);
-      border-radius: 20px;
-      box-shadow: inset -8px -8px 15px rgba(0,0,0,0.3), 8px 8px 15px rgba(0,0,0,0.3);
-      opacity: 0.8;
-      animation: floatUpDown 10s infinite ease-in-out;
-    }
-
-    /* Different positions and transforms for shapes */
-    .shape:nth-child(1) {
-      top: 10%;
-      left: 15%;
-      transform: rotate(15deg);
-      animation-delay: 0s;
-    }
-    .shape:nth-child(2) {
-      top: 70%;
-      left: 80%;
-      transform: rotate(45deg);
-      background: linear-gradient(135deg, #ffff00, #ff00ff);
-      animation-delay: 2s;
-    }
-    .shape:nth-child(3) {
-      top: 40%;
-      left: 50%;
-      transform: rotate(60deg);
-      background: linear-gradient(135deg, #00ff00, #ffff00);
-      animation-delay: 4s;
-    }
-
-    /* Animation for floating shapes */
-    @keyframes floatUpDown {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-20px);
-      }
-    }
-
+    /* Optional: Add a subtle hover effect for the entire shape background */
   </style>
 </head>
 <body>
-  <!-- Background neon shapes -->
+  <!-- Background animated shapes -->
   <div class="shapes-container">
     <div class="shape"></div>
     <div class="shape"></div>
     <div class="shape"></div>
   </div>
 
-  <!-- Login form container -->
+  <!-- Account creation form -->
   <div class="container">
-    <div class="title">Neon Login</div>
+    <div class="title">Create New Account</div>
     <form>
       <div class="input-group">
-        <input type="text" placeholder="Username" required />
+        <input type="text" placeholder="Full Name" required />
+      </div>
+      <div class="input-group">
+        <input type="email" placeholder="Email Address" required />
       </div>
       <div class="input-group">
         <input type="password" placeholder="Password" required />
       </div>
-      <button type="submit">Login</button>
+      <div class="input-group">
+        <input type="password" placeholder="Confirm Password" required />
+      </div>
+      <button type="submit">Sign Up</button>
     </form>
   </div>
 </body>
